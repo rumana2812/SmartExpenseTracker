@@ -1,0 +1,20 @@
+from fastapi.testclient import TestClient
+from src.main import app
+
+client = TestClient(app)
+
+
+def test_home():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json()["message"] == "Welcome to Smart Expense Tracker API"
+
+
+def test_get_expenses():
+    response = client.get("/expenses")
+    assert response.status_code == 200
+
+
+def test_total_expenses():
+    response = client.get("/expenses/total")
+    assert response.status_code == 200
